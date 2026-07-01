@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)file:///Users/ariannacalvo/Downloads/Arianna's%20Deal%20Analyzer.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arianna's Wholesale Deal Analyzer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f0;color:#1a1a18;padding:1rem;}
+h1{font-size:22px;font-weight:500;margin-bottom:4px;}
+.sub{font-size:13px;color:#888;margin-bottom:1.5rem;}
+.card{background:#fff;border:1px solid #e5e5e0;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;}
+.sec-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.num{width:24px;height:24px;border-radius:50%;background:#e8f0fe;color:#1a56db;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sec-title{font-size:15px;font-weight:500;}
+.badge{font-size:11px;padding:2px 7px;border-radius:6px;background:#dcfce7;color:#166534;margin-left:6px;}
+label{font-size:13px;color:#666;display:block;margin-bottom:3px;}
+input,select,textarea{width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;background:#fff;color:#1a1a18;}
+input:focus,select:focus{outline:2px solid #2563eb;outline-offset:1px;border-color:transparent;}
+.inp-hi{border:2px solid #f59e0b!important;background:#fffbeb!important;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;}
+.metric{background:#f9f9f7;border-radius:8px;padding:10px 12px;}
+.ml{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;}
+.mv{font-size:18px;font-weight:500;}
+.ms{font-size:11px;color:#aaa;margin-top:1px;}
+.pos{color:#16a34a;}
+.neg{color:#dc2626;}
+.warn-c{color:#d97706;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0ec;font-size:13px;}
+.row:last-child{border-bottom:none;}
+.rl{color:#666;}
+.rv{font-weight:500;}
+.verdict{padding:9px 12px;border-radius:8px;font-size:13px;font-weight:500;margin-top:10px;}
+.verdict.good{background:#dcfce7;color:#166534;}
+.verdict.warn{background:#fef9c3;color:#854d0e;}
+.verdict.bad{background:#fee2e2;color:#991b1b;}
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.tab{padding:5px 12px;border-radius:8px;border:1px solid #d1d5db;font-size:12px;cursor:pointer;background:#fff;color:#666;}
+.tab.on{background:#eff6ff;color:#1d4ed8;border-color:#93c5fd;font-weight:500;}
+.panel{display:none;}
+.panel.on{display:block;}
+hr{border:none;border-top:1px solid #f0f0ec;margin:10px 0;}
+.state-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.sbtn{padding:4px 10px;border-radius:8px;border:1px solid #d1d5db;font-size:12px;cursor:pointer;background:#fff;color:#666;}
+.sbtn.on{background:#eff6ff;color:#1d4ed8;border-color:#93c5fd;}
+.cities{font-size:13px;color:#666;line-height:1.9;}
+.col-head{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;padding:6px 10px;border-radius:8px;margin-bottom:8px;text-align:center;}
+.high-head{background:#fef9c3;color:#854d0e;}
+.low-head{background:#fee2e2;color:#991b1b;}
+.roi-head{background:#dcfce7;color:#166534;}
+.email-box{background:#f9f9f7;border-radius:8px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;margin-top:8px;border:1px solid #e5e5e0;}
+.tip{font-size:11px;color:#aaa;margin-top:2px;}
+</style>
+</head>
+<body>
+<h1>Wholesale deal analyzer</h1>
+<p class="sub">Richard Taylor — Hold My Hand Wholesale &nbsp;·&nbsp; Cash &nbsp;·&nbsp; Section 8 (Yasuoo's method) &nbsp;·&nbsp; Seller Finance</p>
+
+<!-- BUY BOX -->
+<div class="card">
+  <div class="sec-header"><div class="num">1</div><div class="sec-title">Richard's buy box cities</div></div>
+  <div class="state-bar">
+    <button class="sbtn on" onclick="setState(&#39;AL&#39;,this)">Alabama</button>
+    <button class="sbtn" onclick="setState(&#39;MI&#39;,this)">Michigan</button>
+    <button class="sbtn" onclick="setState(&#39;OH&#39;,this)">Ohio</button>
+  </div>
+  <div class="cities" id="city-list">Athens · Birmingham · Bessemer · Cullman · Huntsville · Mobile · Montgomery</div>
+</div>
+
+<!-- DEAL TYPE -->
+<div class="card">
+  <div class="sec-header"><div class="num">2</div><div class="sec-title">Deal type calculator</div></div>
+  <div class="tabs">
+    <button class="tab on" onclick="setDeal(&#39;ff&#39;,this)">Fix &amp; flip (cash)</button>
+    <button class="tab" onclick="setDeal(&#39;s8&#39;,this)">Section 8 / DSCR</button>
+    <button class="tab" onclick="setDeal(&#39;sf&#39;,this)">Seller finance</button>
+  </div>
+
+  <!-- FIX & FLIP -->
+  <div class="panel on" id="panel-ff">
+    <div class="g2">
+      <div><label>ARV — after repair value $</label><input type="number" id="ff-arv" value="120000" oninput="calcFF()"></div>
+      <div><label>Your assignment fee $</label><input type="number" id="ff-assign" value="5000" oninput="calcFF()"></div>
+    </div>
+    <div class="g3">
+      <div><label>Rehab cost $</label><input type="number" id="ff-rehab" value="15000" oninput="calcFF()"></div>
+      <div><label>Rehab level (auto-fills holding)</label>
+        <select id="ff-level" onchange="autoHolding()">
+          <option value="4000">Light — $3k–5k holding</option>
+          <option value="6000">Medium — $5k–7k holding</option>
+          <option value="8500">Heavy — $7k–10k holding</option>
+        </select>
+      </div>
+      <div><label>Holding costs $</label><input type="number" id="ff-hold" value="4000" oninput="calcFF()"></div>
+    </div>
+    <div class="g3">
+      <div><label>Closing costs $</label><input type="number" id="ff-close" value="3000" oninput="calcFF()"></div>
+      <div><label>Investor buffer %</label>
+        <select id="ff-pct" onchange="calcFF()">
+          <option value="0.70" selected="">70% — standard</option>
+          <option value="0.65">65% — tight market</option>
+          <option value="0.75">75% — hot market</option>
+        </select>
+      </div>
+      <div></div>
+    </div>
+    <div class="g4" id="ff-metrics"><div class="metric"><div class="ml">MAO — offer to seller</div><div class="mv pos">$57,000</div><div class="ms">your max offer</div></div><div class="metric"><div class="ml">Contract price</div><div class="mv">$57,000</div><div class="ms">what you sign at</div></div><div class="metric"><div class="ml">Tell dispo</div><div class="mv">$62,000</div><div class="ms">contract + assign fee</div></div><div class="metric"><div class="ml">Your fee</div><div class="mv pos">$5,000</div><div class="ms">your profit</div></div></div>
+    <div id="ff-breakdown"><hr><div class="row"><span class="rl">ARV × 70%</span><span class="rv">$84,000</span></div><div class="row"><span class="rl">− Rehab cost</span><span class="rv">−$15,000</span></div><div class="row"><span class="rl">− Holding costs</span><span class="rv">−$4,000</span></div><div class="row"><span class="rl">− Closing costs</span><span class="rv">−$3,000</span></div><div class="row"><span class="rl">− Assignment fee</span><span class="rv">−$5,000</span></div><div class="row" style="font-weight:500"><span class="rl">= MAO (offer seller this)</span><span class="rv">$57,000</span></div></div>
+    <div id="ff-verdict"><div class="verdict good">Deal works. Offer the seller $57,000. Tell dispo your assign fee is $5,000. Submit.</div></div>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="panel" id="panel-s8">
+    <p style="font-size:12px;color:#888;margin-bottom:10px">Yellow-highlighted = your inputs (Yasuoo's method). Everything else auto-calculates.</p>
+    <div class="g2">
+      <div><label>Buy price $</label><input class="inp-hi" type="number" id="s8-buy" value="70000" oninput="calcS8()"></div>
+      <div><label>Entry fee $ <span style="font-size:11px">(down pmt + closing + assign fee total)</span></label><input class="inp-hi" type="number" id="s8-entry" value="19000" oninput="calcS8()"></div>
+    </div>
+    <div class="g2">
+      <div><label>Interest rate %</label><input class="inp-hi" type="number" id="s8-rate" value="7.5" step="0.25" oninput="calcS8()"></div>
+      <div><label>Loan term (years)</label><input type="number" id="s8-term" value="30" oninput="calcS8()"></div>
+    </div>
+    <div class="row" style="margin-bottom:8px"><span class="rl">LTV 80% — loan amount</span><span class="rv" id="s8-loan">$56,000.00</span></div>
+    <div class="row" style="margin-bottom:12px"><span class="rl">Monthly debt service (P&amp;I)</span><span class="rv" id="s8-ds">$391.56</span></div>
+    <div class="g2">
+      <div>
+        <div class="col-head high-head">High end revenue</div>
+        <label>Rent / month $</label><input class="inp-hi" type="number" id="s8-hrent" value="1220" oninput="calcS8()" style="margin-bottom:6px">
+        <label>Annual tax $</label><input class="inp-hi" type="number" id="s8-htax" value="840" oninput="calcS8()" style="margin-bottom:6px">
+        <label>Annual insurance $</label><input class="inp-hi" type="number" id="s8-hins" value="600" oninput="calcS8()" style="margin-bottom:6px">
+        <label>HOA / month $</label><input class="inp-hi" type="number" id="s8-hhoa" value="0" oninput="calcS8()" style="margin-bottom:8px">
+        <div class="row"><span class="rl">Rent −20% (PM + maint.)</span><span class="rv" id="s8-hadj">$976.00</span></div>
+        <div class="row"><span class="rl">Total PITI</span><span class="rv" id="s8-hpiti">$511.56</span></div>
+        <div class="row"><span class="rl" style="font-weight:500">Net profit / mo</span><span class="rv pos" id="s8-hnet">$464.44</span></div>
+        <div class="row"><span class="rl">Annual cash flow</span><span class="rv" id="s8-hacf">$5,573.28</span></div>
+        <div class="row"><span class="rl" style="font-weight:500">COC return</span><span id="s8-hcoc" style="font-size:18px;font-weight:500" class="pos">29.33%</span></div>
+      </div>
+      <div>
+        <div class="col-head low-head">Low end revenue</div>
+        <label>Rent / month $</label><input class="inp-hi" type="number" id="s8-lrent" value="1400" oninput="calcS8()" style="margin-bottom:6px">
+        <label>Annual tax $</label><input class="inp-hi" type="number" id="s8-ltax" value="312" oninput="calcS8()" style="margin-bottom:6px">
+        <label>Annual insurance $</label><input class="inp-hi" type="number" id="s8-lins" value="276" oninput="calcS8()" style="margin-bottom:6px">
+        <label>HOA / month $</label><input class="inp-hi" type="number" id="s8-lhoa" value="0" oninput="calcS8()" style="margin-bottom:8px">
+        <div class="row"><span class="rl">Rent −25% (PM + maint.)</span><span class="rv" id="s8-ladj">$1,050.00</span></div>
+        <div class="row"><span class="rl">Total PITI</span><span class="rv" id="s8-lpiti">$440.56</span></div>
+        <div class="row"><span class="rl" style="font-weight:500">Net profit / mo</span><span class="rv pos" id="s8-lnet">$609.44</span></div>
+        <div class="row"><span class="rl">Annual cash flow</span><span class="rv" id="s8-lacf">$7,313.28</span></div>
+        <div class="row"><span class="rl" style="font-weight:500">COC return</span><span id="s8-lcoc" style="font-size:18px;font-weight:500" class="pos">38.49%</span></div>
+      </div>
+    </div>
+    <div id="s8-verdict"><div class="verdict good">Strong deal — COC range 29.33% to 38.49%. This is what Richard's buyers want. Submit to dispo.</div></div>
+    <p style="font-size:12px;color:#aaa;margin-top:8px">Richard's benchmark: 10%+ COC minimum. Section 8 in your buy box cities commonly hits 20–40%+ due to low buy prices relative to rents.</p>
+  </div>
+
+  <!-- SELLER FINANCE -->
+  <div class="panel" id="panel-sf">
+    <div class="g3">
+      <div><label>Property ARV / value $</label><input type="number" id="sf-arv" value="120000" oninput="calcSF()"></div>
+      <div><label>Seller asking price $</label><input type="number" id="sf-ask" value="90000" oninput="calcSF()"></div>
+      <div><label>Down payment $</label><input type="number" id="sf-down" value="10000" oninput="calcSF()"></div>
+    </div>
+    <div class="g3">
+      <div><label>Interest rate %</label><input type="number" id="sf-rate" value="6" step="0.25" oninput="calcSF()"></div>
+      <div><label>Loan term (years)</label><input type="number" id="sf-term" value="30" oninput="calcSF()"></div>
+      <div><label>Monthly rent $</label><input type="number" id="sf-rent" value="900" oninput="calcSF()"></div>
+    </div>
+    <div class="g2"><div><label>Your assignment fee $</label><input type="number" id="sf-assign" value="5000" oninput="calcSF()"></div><div></div></div>
+    <div class="g4" id="sf-metrics"><div class="metric"><div class="ml">Monthly P&amp;I payment</div><div class="mv">$479.64</div></div><div class="metric"><div class="ml">Monthly cash flow</div><div class="mv pos">$420.36</div><div class="ms">rent − payment</div></div><div class="metric"><div class="ml">Built-in equity</div><div class="mv pos">$30,000</div><div class="ms">ARV − ask price</div></div><div class="metric"><div class="ml">Your assign fee</div><div class="mv pos">$5,000</div></div></div>
+    <div id="sf-breakdown"><hr><div class="row"><span class="rl">Loan (ask − down)</span><span class="rv">$80,000</span></div><div class="row"><span class="rl">Monthly payment</span><span class="rv">$479.64</span></div><div class="row"><span class="rl">Monthly rent</span><span class="rv">$900.00</span></div><div class="row" style="font-weight:500"><span class="rl">Monthly cash flow</span><span class="rv">$420.36</span></div><div class="row"><span class="rl">Equity at purchase</span><span class="rv">$30,000</span></div></div>
+    <div id="sf-verdict"><div class="verdict good">Solid — positive cash flow + $30,000 built-in equity. Good seller finance deal for investors.</div></div>
+  </div>
+</div>
+
+<!-- ARV COMP CALCULATOR -->
+<div class="card">
+  <div class="sec-header">
+    <div class="num">3</div>
+    <div class="sec-title">ARV comp calculator</div>
+    <span class="badge">Yasuoo's method</span>
+  </div>
+  <p style="font-size:12px;color:#888;margin-bottom:10px">Avg price/sqft across your comps × your deal's sqft = ARV. Use at least 2 comps.</p>
+  <div class="g2" style="margin-bottom:10px">
+    <div><label>Your deal — total sqft</label><input type="number" id="arv-sqft" value="1940" oninput="calcARV()"></div>
+    <div style="display:flex;align-items:flex-end"><button class="tab" onclick="addComp()" style="margin-bottom:0">+ add comp</button></div>
+  </div>
+  <div id="comps-wrap"><div class="g2" style="margin-bottom:8px"><div><label>Comp 1 — sold price $</label><input type="number" value="100000" oninput="comps[0].price=this.value;calcARV()"></div><div><label>Comp 1 — sqft</label><input type="number" value="1743" oninput="comps[0].sqft=this.value;calcARV()"></div></div><div class="g2" style="margin-bottom:8px"><div><label>Comp 2 — sold price $</label><input type="number" value="73000" oninput="comps[1].price=this.value;calcARV()"></div><div><label>Comp 2 — sqft</label><input type="number" value="1500" oninput="comps[1].sqft=this.value;calcARV()"></div></div></div>
+  <div class="g3" style="margin-top:10px">
+    <div class="metric"><div class="ml">Avg price / sqft</div><div class="mv" id="arv-ppsf">$53</div></div>
+    <div class="metric"><div class="ml">Estimated ARV</div><div class="mv pos" id="arv-val">$102,858</div></div>
+    <div class="metric"><div class="ml">Comps used</div><div class="mv" id="arv-count">2</div></div>
+  </div>
+  <button class="tab on" style="margin-top:10px;width:100%;padding:9px" onclick="useARV()">Use this ARV in the fix &amp; flip calculator ↑</button>
+</div>
+
+<!-- COMP PILLARS -->
+<div class="card">
+  <div class="sec-header"><div class="num">4</div><div class="sec-title">Yasuoo's 6 comp pillars — match these when pulling comps</div></div>
+  <div class="g3">
+    <div class="metric"><div class="ml">1</div><div style="font-size:14px;font-weight:500">Sqft</div><div class="ms">Match size closely</div></div>
+    <div class="metric"><div class="ml">2</div><div style="font-size:14px;font-weight:500">Building style</div><div class="ms">Ranch, bungalow, etc.</div></div>
+    <div class="metric"><div class="ml">3</div><div style="font-size:14px;font-weight:500">Construction</div><div class="ms">Brick vs. frame</div></div>
+    <div class="metric"><div class="ml">4</div><div style="font-size:14px;font-weight:500">Bedrooms</div><div class="ms">Same bed count</div></div>
+    <div class="metric"><div class="ml">5</div><div style="font-size:14px;font-weight:500">Bathrooms</div><div class="ms">Same bath count</div></div>
+    <div class="metric"><div class="ml">6</div><div style="font-size:14px;font-weight:500">Year built</div><div class="ms">Within 10–15 years</div></div>
+  </div>
+</div>
+
+<!-- FORMULA REFERENCE -->
+<div class="card">
+  <div class="sec-header"><div class="num">5</div><div class="sec-title">Formula quick reference</div></div>
+  <div class="g2">
+    <div>
+      <div class="col-head high-head">Fix &amp; flip</div>
+      <div class="row"><span class="rl">MAO formula</span><span class="rv">ARV × % − (rehab + closing + holding + assign)</span></div>
+      <div class="row"><span class="rl">Offer seller</span><span class="rv">MAO = your contract price</span></div>
+      <div class="row"><span class="rl">Tell dispo</span><span class="rv">Contract + your assign fee</span></div>
+      <div class="row"><span class="rl">Light rehab holding</span><span class="rv">$3k–$5k</span></div>
+      <div class="row"><span class="rl">Medium rehab holding</span><span class="rv">$5k–$7k</span></div>
+      <div class="row"><span class="rl">Heavy rehab holding</span><span class="rv">$7k–$10k</span></div>
+    </div>
+    <div>
+      <div class="col-head roi-head">Section 8 / DSCR</div>
+      <div class="row"><span class="rl">Loan</span><span class="rv">Buy price × 80%</span></div>
+      <div class="row"><span class="rl">High end adj. rent</span><span class="rv">Rent × 80% (−20% PM + maint.)</span></div>
+      <div class="row"><span class="rl">Low end adj. rent</span><span class="rv">Rent × 75% (−25%)</span></div>
+      <div class="row"><span class="rl">Net profit / mo</span><span class="rv">Adj. rent − PITI</span></div>
+      <div class="row"><span class="rl">COC return</span><span class="rv">(Annual cash flow ÷ entry fee) × 100</span></div>
+      <div class="row"><span class="rl">Investor target</span><span class="rv">10%+ min · 20%+ strong</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL GENERATOR -->
+<div class="card">
+  <div class="sec-header"><div class="num">6</div><div class="sec-title">Offer email generator</div></div>
+  <div class="g2">
+    <div><label>Agent / seller name</label><input type="text" id="em-agent" value="Agent" oninput="genEmail()"></div>
+    <div><label>Property address</label><input type="text" id="em-addr" value="123 Main St, Detroit MI" oninput="genEmail()"></div>
+  </div>
+  <div class="g3">
+    <div><label>Your offer price $</label><input type="number" id="em-offer" value="55000" oninput="genEmail()"></div>
+    <div><label>Closing timeline (days)</label><input type="number" id="em-close" value="21" oninput="genEmail()"></div>
+    <div><label>Inspection period (days)</label><input type="number" id="em-inspect" value="7" oninput="genEmail()"></div>
+  </div>
+  <div class="email-box" id="email-out">Subject: Cash offer — 123 Main St, Detroit MI
+
+Hi Agent,
+
+Hope you're doing well. I'm reaching out with a cash offer on the property at 123 Main St, Detroit MI.
+
+Offer price: $55,000 — all cash, no financing contingency
+Closing timeline: 21 days from acceptance
+Inspection period: 7 days
+
+This is a straightforward, no-hassle transaction. We close quickly and are flexible on any seller needs.
+
+Please let me know if the seller would consider this offer. Even if the price isn't right today, please keep my offer on file — I'm actively buying in this area.
+
+Thank you for your time.
+
+Best,
+[Your name]
+[Your phone number]</div>
+</div>
+
+<script>
+const states={AL:'Athens · Birmingham · Bessemer · Cullman · Huntsville · Mobile · Montgomery',MI:'Ann Arbor · Dearborn · Detroit · Flint · Grand Rapids · Highland Park · Lansing · Lapeer · Mancelona · Pontiac · Redford · Rochester Hills · Saginaw',OH:'Akron · Celina · Chillicothe · Cincinnati · Cleveland · Columbus · Dayton · Hamilton · Toledo · Findlay · Lorain · Massillon · Springfield'};
+function setState(k,el){document.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.getElementById('city-list').textContent=states[k];}
+function setDeal(k,el){document.querySelectorAll('.tab[onclick^="setDeal"]').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('panel-'+k).classList.add('on');}
+const fmt=n=>isNaN(n)||!isFinite(n)?'—':'$'+Math.round(n).toLocaleString();
+const fmtD=n=>isNaN(n)||!isFinite(n)?'—':'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtP=n=>isNaN(n)||!isFinite(n)?'—':Math.round(n*100)/100+'%';
+
+function calcFF(){
+  const arv=+document.getElementById('ff-arv').value||0,assign=+document.getElementById('ff-assign').value||0,rehab=+document.getElementById('ff-rehab').value||0,hold=+document.getElementById('ff-hold').value||0,close=+document.getElementById('ff-close').value||0,pct=+document.getElementById('ff-pct').value||0.70;
+  const mao=arv*pct-(rehab+close+hold+assign),sell=mao+assign;
+  document.getElementById('ff-metrics').innerHTML=`<div class="metric"><div class="ml">MAO — offer to seller</div><div class="mv ${mao>0?'pos':'neg'}">${fmt(mao)}</div><div class="ms">your max offer</div></div><div class="metric"><div class="ml">Contract price</div><div class="mv">${fmt(mao)}</div><div class="ms">what you sign at</div></div><div class="metric"><div class="ml">Tell dispo</div><div class="mv">${fmt(sell)}</div><div class="ms">contract + assign fee</div></div><div class="metric"><div class="ml">Your fee</div><div class="mv pos">${fmt(assign)}</div><div class="ms">your profit</div></div>`;
+  document.getElementById('ff-breakdown').innerHTML=`<hr><div class="row"><span class="rl">ARV × ${Math.round(pct*100)}%</span><span class="rv">${fmt(arv*pct)}</span></div><div class="row"><span class="rl">− Rehab cost</span><span class="rv">−${fmt(rehab)}</span></div><div class="row"><span class="rl">− Holding costs</span><span class="rv">−${fmt(hold)}</span></div><div class="row"><span class="rl">− Closing costs</span><span class="rv">−${fmt(close)}</span></div><div class="row"><span class="rl">− Assignment fee</span><span class="rv">−${fmt(assign)}</span></div><div class="row" style="font-weight:500"><span class="rl">= MAO (offer seller this)</span><span class="rv">${fmt(mao)}</span></div>`;
+  const v=document.getElementById('ff-verdict');
+  if(mao<=0)v.innerHTML='<div class="verdict bad">Numbers don\'t work — MAO is negative. Negotiate the price down or move on.</div>';
+  else if(assign>=5000)v.innerHTML=`<div class="verdict good">Deal works. Offer the seller ${fmt(mao)}. Tell dispo your assign fee is ${fmt(assign)}. Submit.</div>`;
+  else v.innerHTML=`<div class="verdict warn">Thin deal — only ${fmt(assign)} fee. Try negotiating a lower buy price for more cushion.</div>`;
+}
+function autoHolding(){document.getElementById('ff-hold').value=document.getElementById('ff-level').value;calcFF();}
+
+function calcS8(){
+  const buy=+document.getElementById('s8-buy').value||0,entry=+document.getElementById('s8-entry').value||0,rate=+document.getElementById('s8-rate').value||0,term=+document.getElementById('s8-term').value||30;
+  const loan=buy*0.80,mr=rate/100/12,n=term*12,ds=loan>0&&mr>0?loan*(mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1):loan/n;
+  document.getElementById('s8-loan').textContent=fmtD(loan);
+  document.getElementById('s8-ds').textContent=fmtD(ds);
+  const sides=[{suffix:'h',rentId:'s8-hrent',taxId:'s8-htax',insId:'s8-hins',hoaId:'s8-hhoa',adj:0.80},{suffix:'l',rentId:'s8-lrent',taxId:'s8-ltax',insId:'s8-lins',hoaId:'s8-lhoa',adj:0.75}];
+  let cocs=[];
+  sides.forEach(s=>{
+    const rent=+document.getElementById(s.rentId).value||0,taxA=+document.getElementById(s.taxId).value||0,insA=+document.getElementById(s.insId).value||0,hoa=+document.getElementById(s.hoaId).value||0;
+    const adj=rent*s.adj,tax=taxA/12,ins=insA/12,piti=ds+tax+ins+hoa,net=adj-piti,acf=net*12,coc=entry>0?(acf/entry)*100:0;
+    cocs.push(coc);
+    document.getElementById('s8-'+s.suffix+'adj').textContent=fmtD(adj);
+    document.getElementById('s8-'+s.suffix+'piti').textContent=fmtD(piti);
+    document.getElementById('s8-'+s.suffix+'net').textContent=fmtD(net);
+    document.getElementById('s8-'+s.suffix+'net').className='rv '+(net>=0?'pos':'neg');
+    document.getElementById('s8-'+s.suffix+'acf').textContent=fmtD(acf);
+    document.getElementById('s8-'+s.suffix+'coc').textContent=fmtP(coc);
+    document.getElementById('s8-'+s.suffix+'coc').className=(coc>=10?'pos':'neg');
+  });
+  const avg=(cocs[0]+cocs[1])/2,v=document.getElementById('s8-verdict');
+  if(cocs[0]<0||cocs[1]<0)v.innerHTML='<div class="verdict bad">Net profit is negative — property doesn\'t cash flow. Negotiate the buy price down.</div>';
+  else if(avg>=20)v.innerHTML=`<div class="verdict good">Strong deal — COC range ${fmtP(cocs[0])} to ${fmtP(cocs[1])}. This is what Richard\'s buyers want. Submit to dispo.</div>`;
+  else if(avg>=10)v.innerHTML=`<div class="verdict warn">Acceptable — COC ${fmtP(cocs[0])} to ${fmtP(cocs[1])}. Meets 10% minimum. Try to negotiate buy price lower for more cushion.</div>`;
+  else v.innerHTML=`<div class="verdict bad">Weak — COC ${fmtP(cocs[0])} to ${fmtP(cocs[1])}. Below 10%. Investors will pass. Need lower buy price.</div>`;
+}
+
+function calcSF(){
+  const arv=+document.getElementById('sf-arv').value||0,ask=+document.getElementById('sf-ask').value||0,down=+document.getElementById('sf-down').value||0,rate=+document.getElementById('sf-rate').value||0,term=+document.getElementById('sf-term').value||30,rent=+document.getElementById('sf-rent').value||0,assign=+document.getElementById('sf-assign').value||0;
+  const principal=ask-down,mr=rate/100/12,n=term*12,pmt=principal>0&&mr>0?principal*(mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1):principal/n,cf=rent-pmt,equity=arv-ask;
+  document.getElementById('sf-metrics').innerHTML=`<div class="metric"><div class="ml">Monthly P&I payment</div><div class="mv">${fmtD(pmt)}</div></div><div class="metric"><div class="ml">Monthly cash flow</div><div class="mv ${cf>=0?'pos':'neg'}">${fmtD(cf)}</div><div class="ms">rent − payment</div></div><div class="metric"><div class="ml">Built-in equity</div><div class="mv ${equity>5000?'pos':'warn-c'}">${fmt(equity)}</div><div class="ms">ARV − ask price</div></div><div class="metric"><div class="ml">Your assign fee</div><div class="mv pos">${fmt(assign)}</div></div>`;
+  document.getElementById('sf-breakdown').innerHTML=`<hr><div class="row"><span class="rl">Loan (ask − down)</span><span class="rv">${fmt(principal)}</span></div><div class="row"><span class="rl">Monthly payment</span><span class="rv">${fmtD(pmt)}</span></div><div class="row"><span class="rl">Monthly rent</span><span class="rv">${fmtD(rent)}</span></div><div class="row" style="font-weight:500"><span class="rl">Monthly cash flow</span><span class="rv">${fmtD(cf)}</span></div><div class="row"><span class="rl">Equity at purchase</span><span class="rv">${fmt(equity)}</span></div>`;
+  const v=document.getElementById('sf-verdict');
+  if(cf>0&&equity>10000)v.innerHTML=`<div class="verdict good">Solid — positive cash flow + ${fmt(equity)} built-in equity. Good seller finance deal for investors.</div>`;
+  else if(cf>0)v.innerHTML='<div class="verdict warn">Cash flows but low equity spread. Investors may want a lower price.</div>';
+  else v.innerHTML='<div class="verdict bad">Negative cash flow — payment exceeds rent. Renegotiate price or pass.</div>';
+}
+
+let comps=[{price:'100000',sqft:'1743'},{price:'73000',sqft:'1500'}];
+function renderComps(){
+  document.getElementById('comps-wrap').innerHTML=comps.map((c,i)=>`<div class="g2" style="margin-bottom:8px"><div><label>Comp ${i+1} — sold price $</label><input type="number" value="${c.price}" oninput="comps[${i}].price=this.value;calcARV()"></div><div><label>Comp ${i+1} — sqft</label><input type="number" value="${c.sqft}" oninput="comps[${i}].sqft=this.value;calcARV()"></div></div>`).join('');
+  calcARV();
+}
+function addComp(){if(comps.length<6){comps.push({price:'',sqft:''});renderComps();}}
+function calcARV(){
+  const ds=+document.getElementById('arv-sqft').value||0,valid=comps.filter(c=>+c.price>0&&+c.sqft>0),ppsfs=valid.map(c=>(+c.price)/(+c.sqft)),avg=ppsfs.length?ppsfs.reduce((a,b)=>a+b,0)/ppsfs.length:0,arv=avg*ds;
+  document.getElementById('arv-ppsf').textContent=avg>0?'$'+Math.round(avg):'—';
+  document.getElementById('arv-val').textContent=arv>0?fmt(arv):'—';
+  document.getElementById('arv-count').textContent=valid.length||'—';
+}
+function useARV(){
+  const ds=+document.getElementById('arv-sqft').value||0,valid=comps.filter(c=>+c.price>0&&+c.sqft>0),ppsfs=valid.map(c=>(+c.price)/(+c.sqft)),avg=ppsfs.length?ppsfs.reduce((a,b)=>a+b,0)/ppsfs.length:0,arv=Math.round(avg*ds);
+  if(arv>0){document.getElementById('ff-arv').value=arv;setDeal('ff',document.querySelector('.tab[onclick^="setDeal(\'ff\'"]'));calcFF();}
+}
+
+function genEmail(){
+  const agent=document.getElementById('em-agent').value||'Agent',addr=document.getElementById('em-addr').value||'the property',offer=+document.getElementById('em-offer').value||0,close=document.getElementById('em-close').value||'21',inspect=document.getElementById('em-inspect').value||'7';
+  document.getElementById('email-out').textContent=`Subject: Cash offer — ${addr}\n\nHi ${agent},\n\nHope you're doing well. I'm reaching out with a cash offer on the property at ${addr}.\n\nOffer price: ${fmt(offer)} — all cash, no financing contingency\nClosing timeline: ${close} days from acceptance\nInspection period: ${inspect} days\n\nThis is a straightforward, no-hassle transaction. We close quickly and are flexible on any seller needs.\n\nPlease let me know if the seller would consider this offer. Even if the price isn't right today, please keep my offer on file — I'm actively buying in this area.\n\nThank you for your time.\n\nBest,\n[Your name]\n[Your phone number]`;
+}
+
+calcFF();calcS8();calcSF();renderComps();genEmail();
+</script>
+
+
+</body></html>
